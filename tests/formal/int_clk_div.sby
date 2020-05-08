@@ -1,0 +1,15 @@
+[options]
+mode cover
+depth 100
+#append 10
+#multiclock off
+
+[engines]
+smtbmc
+
+[script]
+read -formal int_clk_div.v
+prep -top int_clk_div
+
+[files]
+../../hdl/int_clk_div.v

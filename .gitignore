@@ -1,0 +1,48 @@
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Files and Folders
+*.vbak
+*.vbak
+*.lyx~
+*.lyx#
+*.vcd
+*.pyc
+qproj/
+*.orig
+tests/formal/int_clk_div/
+tests/cocotb/results.xml
+tests/cocotb/sim_build/
+tests/cocotb/build/
+IDEAs.md
+TODO.md

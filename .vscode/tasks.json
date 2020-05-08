@@ -1,0 +1,118 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+
+        {
+            "label": "clear output",
+            "command": "echo",
+            "args": [
+                "-- terminal got cleared"
+            ],
+            "options": {
+            },
+            "presentation": {
+                "clear": true,
+                "focus": true,
+                "showReuseMessage": false,
+            },
+        },         
+
+        {
+            "label": "symb",
+            "type": "shell",
+            "command": "sby",
+            "args": ["-f", "${fileBasenameNoExtension}.sby"],
+            "options": {
+                "cwd": "${workspaceRoot}/tests/formal"
+            },
+            "presentation": {
+                "clear": false,
+                "showReuseMessage": false,
+                "focus": true,
+            },
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "clear output"
+            ]
+        },  
+        
+        {
+            "label": "cocotb",
+            "type": "shell",
+            "command": "make",
+            "args": [],
+            "options": {
+                "cwd": "${workspaceRoot}/tests/cocotb"
+            },
+            "presentation": {
+                "clear": false,
+                "showReuseMessage": false,
+                "focus": true,
+            },
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "clear output"
+            ]
+        },   
+        
+        {
+            "label": "cocotb_clean",
+            "type": "shell",
+            "command": "make clean",
+            "args": [],
+            "options": {
+                "cwd": "${workspaceRoot}/tests/cocotb"
+            },
+            "presentation": {
+                "clear": true,
+                "showReuseMessage": false,
+                "focus": true,
+            },
+        },         
+
+        {
+            "label": "fizzim",
+            "type": "shell",
+            "command": "sh",
+            "args": [
+                "fizzim.sh",
+            ],
+            "options": {
+                "cwd": "${workspaceRoot}/hdl/fizzim"
+            },
+            "presentation": {
+                "clear": false,
+                "showReuseMessage": false,
+                "focus": true,
+            },
+        },
+
+        {
+            "label": "yosys",
+            "type": "shell",
+            "command": "yosys ${fileBasenameNoExtension}.ys",
+            "options": {
+                "cwd": "${workspaceRoot}/bench/formal"
+            },
+        },  
+        
+        {
+            "label": "istyle",
+            "type": "shell",
+            "command": "${workspaceRoot}/hdl/iStyle ${fileBasename}",
+            "args": [],
+            "options": {
+                "cwd": "${workspaceRoot}/hdl"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": true
+            }                       
+        },  
+
+    ]
+}
