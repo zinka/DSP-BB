@@ -112,7 +112,47 @@
                 "showReuseMessage": true,
                 "clear": true
             }                       
-        },  
+        }, 
+        
+        {
+            "label": "netlistsvg",
+            "type": "shell",
+            "command": "netlistsvg output.json && gpicview out.svg",
+            "args": [],
+            "options": {
+                "cwd": "${workspaceRoot}/hdl"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": true
+            },
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "yosys_js"
+            ]            
+        },
+        
+        {
+            "label": "yosys_js",
+            "type": "shell",
+            "command": "yosys -p \"prep -top ${fileBasenameNoExtension}; write_json -compat-int output.json\" ${fileBasename}",
+            "args": [],
+            "options": {
+                "cwd": "${workspaceRoot}/hdl"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": true
+            }                       
+        },         
 
     ]
 }

@@ -46,3 +46,6 @@ tests/cocotb/sim_build/
 tests/cocotb/build/
 IDEAs.md
 TODO.md
+hdl/out.svg
+hdl/output.json
+tests/cocotb/doc/_build
