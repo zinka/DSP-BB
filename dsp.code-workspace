@@ -5,6 +5,9 @@
 		}
 	],
 	"settings": {
-		"terminal.integrated.fontSize": 10
+		"terminal.integrated.fontSize": 10,
+		"systemverilog.compileOnSave": true,
+		"systemverilog.launchConfiguration": "verilator  --lint-only  --Wall",
+		"python.pythonPath": "/usr/bin/python2"
 	}
 }

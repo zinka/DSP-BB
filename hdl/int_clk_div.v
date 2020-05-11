@@ -136,7 +136,8 @@ begin
     `ASSUME(i_ce && i_rstn);
     if (counter == (HALF_CLOCK_STRECH-1)) f_clk_cnt <= f_clk_cnt +1;
     if (f_clk_cnt == 5)
-        cover((counter == (HALF_CLOCK_STRECH-1)) && o_clk); // simple alternative to testbench
+        // simple alternative to testbench
+        cover((counter == (HALF_CLOCK_STRECH-1)) && o_clk);
 end
 
 //________________________________________________________

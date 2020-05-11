@@ -1,0 +1,29 @@
+{
+    "signal": [
+        {
+            "name": "clock", 
+            "wave": "p..."
+        }, 
+        {
+            "data": "0 1 2 10", 
+            "name": "i_a", 
+            "wave": "===="
+        }, 
+        {
+            "data": "0 2 3 65521", 
+            "name": "i_b", 
+            "wave": "===="
+        }, 
+        {
+            "data": "0 3 5 262139", 
+            "name": "o_sum", 
+            "wave": "===="
+        }
+    ], 
+    "config": {
+        "hscale": 3
+    }, 
+    "head": {
+        "tick": 0
+    }
+}

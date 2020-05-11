@@ -14,6 +14,7 @@
 ******************************************************************************
 */
 
+`timescale 1ns/1ns
 `default_nettype none
 
 module signed_adder #(
@@ -21,16 +22,19 @@ module signed_adder #(
     parameter BWIDTH=16
 )
 (
+    input  wire  i_clk,
     input  wire  signed  [AWIDTH-1:0] i_a,
 	input  wire  signed  [BWIDTH-1:0] i_b,
-	output wire  signed  [OUTWID:0]   o_sum // do I need signed?
+	output reg   [OUTWID-1:0]   o_sum
 );
 
     // deciding output width
     localparam	OUTWID = (AWIDTH > BWIDTH) ? (AWIDTH + 1) : (BWIDTH+1);
 
     /* verilator lint_off WIDTH */
-    assign o_sum = i_a + i_b;
+    always @(posedge i_clk) begin
+        o_sum <= i_a + i_b;
+    end
     /* verilator lint_on WIDTH */
 
 endmodule
