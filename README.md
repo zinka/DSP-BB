@@ -2,4 +2,4 @@
 
 I just started this repository.
 
-Plase see https://zinka.wordpress.com/2020/04/24/my-verilog-workflow/ containing a brief description: 
+Plase see https://zinka.wordpress.com/2020/05/11/my-verilog-workflow-updated/ containing a brief description: 
