@@ -59,7 +59,7 @@ class BitMonitor(Monitor):
         capture some behavior of the pins, form a transaction, and pass this 
         transaction to the internal ``_recv`` method
         """
-        clkedge = RisingEdge(self.clk)  # this gets executed only once
+        clkedge = RisingEdge(self.clk)  # define clkedge ... after this execution stays in the while loop
 
         while True:
             yield clkedge  # fire on raising edge (until then wait!) ... and then exit temporarily
@@ -81,7 +81,7 @@ class CNT_TB(object):
     """
     def __init__(self, dut, init_val):
 
-        self.stopped = False  # just a flag ... this is like a pause button
+        self.stopped = False  # just a flag ... this is like a pause/play button
 
         # bring in the DUT
         self.dut = dut
@@ -101,7 +101,7 @@ class CNT_TB(object):
         self.scoreboard = Scoreboard(dut)
         self.scoreboard.add_interface(self.output_mon, self.expected_output)
 
-        # prepare the next expected value using a GOLDEN reference (dynamically update the reference values)
+        # prepare the next expected value using/calling a GOLDEN reference
         self.input_mon = BitMonitor(name="input",
                                     signal=dut.o_clk,
                                     clk=dut.i_clk,
@@ -123,7 +123,7 @@ class CNT_TB(object):
         remember if you start again, test starts from the previous state
         """
         self.input_drv.stop()
-        self.stopped = True
+        self.stopped = True # after stopping, update the status flag
 
     def reference(self, transaction):
         """
@@ -140,7 +140,7 @@ class CNT_TB(object):
 @cocotb.test(skip=False)
 def class_test(dut):
     """
-    Setup the (generic) test fixure and start "class_test"
+    Setup the (generic) test fixure and start COCOTB "class_test"
 
     :param dut: Veriog module under test
     """
@@ -169,7 +169,7 @@ def class_test(dut):
 @cocotb.test(skip=False)
 def wavedrom_test(dut):
     """
-    A simple test to provide a Wavedrom file
+    A simple COCOTB test to provide a Wavedrom file
 
     :param dut: Veriog module under test
     """

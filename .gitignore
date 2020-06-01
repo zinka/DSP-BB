@@ -49,3 +49,4 @@ TODO.md
 hdl/out.svg
 hdl/output.json
 tests/cocotb/doc/_build
+tests/formal/signed_adder

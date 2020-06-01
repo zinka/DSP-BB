@@ -22,8 +22,14 @@ from cocotb.result import TestFailure
 from cocotb.scoreboard import Scoreboard
 from cocotb.triggers import RisingEdge, Timer, ReadWrite, ReadOnly
 
+from model.dsp_modules import model
 
 def bin2sign(bin_value):
+    """
+    A simple functional to convert 2's compliment binary value to signed integer
+
+    :param bin_value: 2's compliment binary value
+    """    
     vec = BinaryValue()
     vec.signed_integer = bin_value.value
     return vec.signed_integer
@@ -41,40 +47,43 @@ def basic_simulation(dut):
 
         # start the clock
         cocotb.fork(Clock(dut.i_clk, 10, units='ns').start())
+        clkedge = RisingEdge(dut.i_clk)
 
-        # provide the seqence manually
-        yield Timer(10, units='ns')
+        # provide an input sequence manually
+        # cycle-I
         dut.i_a <= 1
         dut.i_b <= 2
-        yield Timer(10, units='ns')
+        yield clkedge
+        yield ReadWrite()        
+        print(dut.o_sum.value)
+        # cycle-II
         dut.i_a <= 2
         dut.i_b <= 3
-        yield Timer(10, units='ns')
+        yield clkedge
+        yield ReadWrite()        
+        print(dut.o_sum.value)
+        # cycle-II
         dut.i_a <= 10
         dut.i_b <= -15
-        yield Timer(10, units='ns')
+        yield clkedge
+        yield ReadWrite()        
+        print(dut.o_sum.value)
 
-        # convert binary to signed int
-        vec = BinaryValue()
-        vec.signed_integer = dut.o_sum.value
-        print(vec.signed_integer)
+        # # prepare json script and print it out
+        # waves.dumpj(header={'text': 'WaveDrom example', 'tick': 0})
 
-        # prepare json script and print it out
-        waves.dumpj(header={'text': 'WaveDrom example', 'tick': 0})
-
-        # write the json script to a file
-        waves.write('wavedrom.json', header={'tick': 0}, config={'hscale': 3})
+        # # write the json script to a file
+        # waves.write('wavedrom.json', header={'tick': 0}, config={'hscale': 3})
 
 
 @cocotb.test(timeout_time=2000, timeout_unit='ns', skip=False)
 def basic_test(dut):
     """
-    Randmized test for sum = i_a + i_b (signed addition/subtraction)
+    Randmized test for o_sum = i_a + i_b (signed addition/subtraction)
     """
+
     # start the clock
-    clock = Clock(dut.i_clk, 10,
-                  units="ns")  # create a 10us period clock on port clk
-    cocotb.fork(clock.start())  # start the clock
+    cocotb.fork(Clock(dut.i_clk, 10, units='ns').start())
     clkedge = RisingEdge(dut.i_clk)
 
     yield clkedge  # synchronize ourselves with the clock
@@ -90,13 +99,7 @@ def basic_test(dut):
 
         # wait for posedge and let the output be resolved
         yield clkedge
-        yield ReadWrite() # there seems some issue with cocotb here! ... without this statement, this test won't pass
-
-        # format the output if it is a negative number
-        if (model(A, B) < 0):
-            o_SUM = bin2sign(dut.o_sum)
-        else:
-            o_SUM = int(dut.o_sum)
+        yield ReadWrite() # there seems some "updating" issue with cocotb here! ... without this statement, this test won't pass
 
         # format A if it is a negative number
         if (A < 0):
@@ -110,6 +113,12 @@ def basic_test(dut):
         else:
             i_B = int(dut.i_b)
 
+        # format the output if it is a negative number
+        if (model(A, B) < 0):
+            o_SUM = bin2sign(dut.o_sum)
+        else:
+            o_SUM = int(dut.o_sum)            
+
         # compare with the reference model
         if (o_SUM != model(A, B)):
             raise TestFailure("Randomised test failed with: %s + %s = %s" %
@@ -117,7 +126,3 @@ def basic_test(dut):
         else:
             dut._log.info("Randomised test passed with: %s + %s = %s" %
                           (i_A, i_B, o_SUM))
-
-
-def model(a, b):
-    return a + b

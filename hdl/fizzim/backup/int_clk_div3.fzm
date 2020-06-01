@@ -1,4 +1,4 @@
-## File last modified by Fizzim: 7:40:15 PM on 01/05/20
+## File last modified by Fizzim: 11:13:47 AM on 30/04/20
 <version>
    14.02.26
 </version>
@@ -9,7 +9,7 @@
             ABS
             </status>
          <value>
-         int_clk_div2
+         int_clk_div
             <status>
             GLOBAL_VAR
             </status>
@@ -289,7 +289,7 @@
             GLOBAL_FIXED
             </status>
          <value>
-         19'd4
+         19'd20
             <status>
             GLOBAL_VAR
             </status>
@@ -401,7 +401,7 @@
             GLOBAL_FIXED
             </status>
          <value>
-         ../fizzim/int_clk_div2_header.txt
+         ../fizzim/int_clk_div_header.txt
             <status>
             GLOBAL_VAR
             </status>
@@ -741,7 +741,7 @@
             GLOBAL_FIXED
             </status>
          <value>
-         o_clk_stb? (!o_clk) : o_clk
+         (counter < (HALF_CLOCK_STRECH-1))? o_clk : (!o_clk)
             <status>
             GLOBAL_VAR
             </status>
@@ -797,7 +797,7 @@
             GLOBAL_FIXED
             </status>
          <value>
-         o_clk_stb? 0 : (counter + 1'b1)
+         (counter < (HALF_CLOCK_STRECH-1))? (counter + 1'b1) : 0
             <status>
             GLOBAL_VAR
             </status>
@@ -848,62 +848,6 @@
          -1
          </page>
       </counter[(COUNTER_WID-1):0]>
-      <o_clk_stb>
-            <status>
-            GLOBAL_FIXED
-            </status>
-         <value>
-         (counter == (HALF_CLOCK_STRECH-2))
-            <status>
-            GLOBAL_VAR
-            </status>
-         </value>
-         <vis>
-         1
-            <status>
-            GLOBAL_VAR
-            </status>
-         </vis>
-         <type>
-         regdp
-            <status>
-            GLOBAL_VAR
-            </status>
-         </type>
-         <comment>
-         strobe for o_clk
-            <status>
-            GLOBAL_VAR
-            </status>
-         </comment>
-         <color>
-         -16777216
-            <status>
-            GLOBAL_VAR
-            </status>
-         </color>
-         <useratts>
-         suppress_portlist
-            <status>
-            GLOBAL_VAR
-            </status>
-         </useratts>
-         <resetval>
-         1'b0
-            <status>
-            GLOBAL_VAR
-            </status>
-         </resetval>
-         <x2Obj>
-         0
-         </x2Obj>
-         <y2Obj>
-         0
-         </y2Obj>
-         <page>
-         -1
-         </page>
-      </o_clk_stb>
    </outputs>
    <state>
       <name>
@@ -967,7 +911,7 @@
             GLOBAL_FIXED
             </status>
          <value>
-         o_clk_stb? (!o_clk) : o_clk
+         (counter < (HALF_CLOCK_STRECH-1))? o_clk : (!o_clk)
             <status>
             GLOBAL_VAR
             </status>
@@ -1023,7 +967,7 @@
             GLOBAL_FIXED
             </status>
          <value>
-         o_clk_stb? 0 : (counter + 1'b1)
+         (counter < (HALF_CLOCK_STRECH-1))? (counter + 1'b1) : 0
             <status>
             GLOBAL_VAR
             </status>
@@ -1074,62 +1018,6 @@
          -1
          </page>
       </counter[(COUNTER_WID-1):0]>
-      <o_clk_stb>
-            <status>
-            GLOBAL_FIXED
-            </status>
-         <value>
-         (counter == (HALF_CLOCK_STRECH-2))
-            <status>
-            GLOBAL_VAR
-            </status>
-         </value>
-         <vis>
-         1
-            <status>
-            GLOBAL_VAR
-            </status>
-         </vis>
-         <type>
-         output
-            <status>
-            GLOBAL_VAR
-            </status>
-         </type>
-         <comment>
-         strobe for o_clk
-            <status>
-            GLOBAL_VAR
-            </status>
-         </comment>
-         <color>
-         -16777216
-            <status>
-            GLOBAL_VAR
-            </status>
-         </color>
-         <useratts>
-         suppress_portlist
-            <status>
-            GLOBAL_VAR
-            </status>
-         </useratts>
-         <resetval>
-         1'b0
-            <status>
-            GLOBAL_VAR
-            </status>
-         </resetval>
-         <x2Obj>
-         0
-         </x2Obj>
-         <y2Obj>
-         0
-         </y2Obj>
-         <page>
-         -1
-         </page>
-      </o_clk_stb>
    </state>
    <trans>
       <name>
@@ -1587,62 +1475,6 @@ fzm_globalTable
          1
          </page>
       </counter[(COUNTER_WID-1):0]>
-      <o_clk_stb>
-            <status>
-            GLOBAL_FIXED
-            </status>
-         <value>
-         1'b0
-            <status>
-            LOCAL
-            </status>
-         </value>
-         <vis>
-         1
-            <status>
-            GLOBAL_VAR
-            </status>
-         </vis>
-         <type>
-         output
-            <status>
-            GLOBAL_VAR
-            </status>
-         </type>
-         <comment>
-         strobe for o_clk
-            <status>
-            GLOBAL_VAR
-            </status>
-         </comment>
-         <color>
-         -16777216
-            <status>
-            GLOBAL_VAR
-            </status>
-         </color>
-         <useratts>
-         suppress_portlist
-            <status>
-            GLOBAL_VAR
-            </status>
-         </useratts>
-         <resetval>
-         1'b0
-            <status>
-            GLOBAL_VAR
-            </status>
-         </resetval>
-         <x2Obj>
-         -6
-         </x2Obj>
-         <y2Obj>
-         -133
-         </y2Obj>
-         <page>
-         1
-         </page>
-      </o_clk_stb>
    </attributes>
    <x0>
    200
@@ -1717,10 +1549,10 @@ fzm_globalTable
             </status>
          </resetval>
          <x2Obj>
-         3
+         1
          </x2Obj>
          <y2Obj>
-         41
+         36
          </y2Obj>
          <page>
          1
@@ -1731,7 +1563,7 @@ fzm_globalTable
             GLOBAL_FIXED
             </status>
          <value>
-         o_clk_stb? (!o_clk) : o_clk
+         (counter < (HALF_CLOCK_STRECH-1))? o_clk : (!o_clk)
             <status>
             GLOBAL_VAR
             </status>
@@ -1773,10 +1605,10 @@ fzm_globalTable
             </status>
          </resetval>
          <x2Obj>
-         -1
+         0
          </x2Obj>
          <y2Obj>
-         117
+         111
          </y2Obj>
          <page>
          1
@@ -1787,7 +1619,7 @@ fzm_globalTable
             GLOBAL_FIXED
             </status>
          <value>
-         o_clk_stb? 0 : (counter + 1'b1)
+         (counter < (HALF_CLOCK_STRECH-1))? (counter + 1'b1) : 0
             <status>
             GLOBAL_VAR
             </status>
@@ -1838,62 +1670,6 @@ fzm_globalTable
          1
          </page>
       </counter[(COUNTER_WID-1):0]>
-      <o_clk_stb>
-            <status>
-            GLOBAL_FIXED
-            </status>
-         <value>
-         (counter == (HALF_CLOCK_STRECH-2))
-            <status>
-            GLOBAL_VAR
-            </status>
-         </value>
-         <vis>
-         1
-            <status>
-            GLOBAL_VAR
-            </status>
-         </vis>
-         <type>
-         output
-            <status>
-            GLOBAL_VAR
-            </status>
-         </type>
-         <comment>
-         strobe for o_clk
-            <status>
-            GLOBAL_VAR
-            </status>
-         </comment>
-         <color>
-         -16777216
-            <status>
-            GLOBAL_VAR
-            </status>
-         </color>
-         <useratts>
-         suppress_portlist
-            <status>
-            GLOBAL_VAR
-            </status>
-         </useratts>
-         <resetval>
-         1'b0
-            <status>
-            GLOBAL_VAR
-            </status>
-         </resetval>
-         <x2Obj>
-         -48
-         </x2Obj>
-         <y2Obj>
-         132
-         </y2Obj>
-         <page>
-         1
-         </page>
-      </o_clk_stb>
    </attributes>
    <x0>
    550
@@ -2388,62 +2164,6 @@ fzm_globalTable
          1
          </page>
       </counter[(COUNTER_WID-1):0]>
-      <o_clk_stb>
-            <status>
-            GLOBAL_FIXED
-            </status>
-         <value>
-         o_clk_stb
-            <status>
-            LOCAL
-            </status>
-         </value>
-         <vis>
-         1
-            <status>
-            GLOBAL_VAR
-            </status>
-         </vis>
-         <type>
-         output
-            <status>
-            GLOBAL_VAR
-            </status>
-         </type>
-         <comment>
-         strobe for o_clk
-            <status>
-            GLOBAL_VAR
-            </status>
-         </comment>
-         <color>
-         -16777216
-            <status>
-            GLOBAL_VAR
-            </status>
-         </color>
-         <useratts>
-         suppress_portlist
-            <status>
-            GLOBAL_VAR
-            </status>
-         </useratts>
-         <resetval>
-         1'b0
-            <status>
-            GLOBAL_VAR
-            </status>
-         </resetval>
-         <x2Obj>
-         -10
-         </x2Obj>
-         <y2Obj>
-         -148
-         </y2Obj>
-         <page>
-         1
-         </page>
-      </o_clk_stb>
    </attributes>
    <x0>
    375

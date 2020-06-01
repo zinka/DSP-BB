@@ -1,6 +1,6 @@
 #!/bin/sh
 
-FSM_name='int_clk_div2'
+FSM_name='int_clk_div'
 
 # usercode backup
 python formal.py ../${FSM_name}.v

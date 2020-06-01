@@ -1,4 +1,5 @@
 {
     "python.formatting.provider": "yapf",
-    "restructuredtext.confPath": "${workspaceFolder}/tests/cocotb/doc"
+    "restructuredtext.confPath": "${workspaceFolder}/tests/cocotb/doc",
+    "python.pythonPath": "/usr/bin/python3"
 }

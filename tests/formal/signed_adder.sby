@@ -1,0 +1,15 @@
+[options]
+mode bmc
+depth 100
+#append 10
+#multiclock off
+
+[engines]
+smtbmc
+
+[script]
+read -formal signed_adder.v
+prep -top signed_adder
+
+[files]
+../../hdl/primitives/signed_adder.v

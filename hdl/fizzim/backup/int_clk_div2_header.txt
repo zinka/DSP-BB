@@ -4,7 +4,7 @@
 * @project : DSP Building Blocks
 * @brief   : A simple clock divider (integer divide approach)
 * @creator : S. R. Zinka (srinivas . zinka [at] gmail . com)
-* @notes   : this is better compared to int_clk_div interms of area and fmax
+* @notes   : 
 ******************************************************************************
 * This program is hereby granted to the public domain.
 * This program is distributed in the hope that it will be useful, but WITHOUT

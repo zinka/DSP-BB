@@ -1,41 +1,37 @@
 /*
-******************************************************************************
-* @file    : int_clk_div.v
-* @project : DSP Building Blocks
-* @brief   : A simple clock divider (integer divide approach)
-* @creator : S. R. Zinka (srinivas . zinka [at] gmail . com)
-* @notes   : 
-******************************************************************************
-* This program is hereby granted to the public domain.
-* This program is distributed in the hope that it will be useful, but WITHOUT
-* ANY WARRANTY; without even the implied warranty of MERCHANTIBILITY or
-* FITNESS FOR A PARTICULAR PURPOSE.
-******************************************************************************
-*/
+ ******************************************************************************
+ * @file    : int_clk_div.v
+ * @project : DSP Building Blocks
+ * @brief   : A simple clock divider (integer divide approach)
+ * @creator : S. R. Zinka (srinivas . zinka [at] gmail . com)
+ ******************************************************************************
+ * This program is hereby granted to the public domain.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTIBILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.
+ ******************************************************************************
+ */
 
+`timescale 1ns/1ns
 `default_nettype none
 
-module int_clk_div
-       #(
-           parameter COUNTER_WID = 5'd19,
-           parameter HALF_CLOCK_STRECH = 19'd4
-       )(
-           output reg o_clk,                         // stretched output clock
-           input wire i_ce,                          // component enable
-           input wire i_clk,                         // clock
-           input wire i_rstn                         // active low reset
-       );
+module int_clk_div #(parameter COUNTER_WID = 5'd19,
+                     parameter HALF_CLOCK_STRECH = 19'd4)
+       (output reg o_clk,                    // stretched output clock
+        input wire i_ce,                     // component enable
+        input wire i_clk,                    // clock
+        input wire i_rstn);                  // active low reset
 
 /*
-***************************************************************************
-* state machine
-***************************************************************************
-*/
+ ***************************************************************************
+ * state machine
+ ***************************************************************************
+ */
 
 // state indices
 localparam
     RESET = 2'b00,
-    IDLE  = 2'b01,
+    IDLE = 2'b01,
     START = 2'b10;
 
 // state registers
@@ -44,13 +40,13 @@ reg [1:0] nextstate;
 
 // local registers
 reg [(COUNTER_WID-1):0] counter; // counter for stretching
-reg o_clk_stb;                 // strobe for o_clk
+reg o_clk_stb;                   // strobe for o_clk
 
 // initial values
 initial counter[(COUNTER_WID-1):0] = 0;
-initial o_clk = 1'b0;
-initial o_clk_stb = 1'b0;
-initial state = RESET;
+initial o_clk                      = 1'b0;
+initial o_clk_stb                  = 1'b0;
+initial state                      = RESET;
 
 // comb always block
 // verilator lint_off CASEINCOMPLETE
@@ -77,23 +73,23 @@ end
 always @(posedge i_clk) begin
     if (!i_rstn) begin
         counter[(COUNTER_WID-1):0] <= 0;
-        o_clk <= 1'b0;
-        o_clk_stb <= 1'b0;
+        o_clk                      <= 1'b0;
+        o_clk_stb                  <= 1'b0;
     end
     else begin
         counter[(COUNTER_WID-1):0] <= o_clk_stb? 0 : (counter + 1'b1); // default
-        o_clk <= o_clk_stb? (!o_clk) : o_clk; // default
-        o_clk_stb <= (counter == (HALF_CLOCK_STRECH-2)); // default
+        o_clk                      <= o_clk_stb? (!o_clk) : o_clk;     // default
+        o_clk_stb <= (counter == (HALF_CLOCK_STRECH-2));               // default
         case (nextstate)
             RESET: begin
                 counter[(COUNTER_WID-1):0] <= 0;
-                o_clk <= 1'b0;
-                o_clk_stb <= 1'b0;
+                o_clk                      <= 1'b0;
+                o_clk_stb                  <= 1'b0;
             end
             IDLE : begin
                 counter[(COUNTER_WID-1):0] <= counter;
-                o_clk <= o_clk;
-                o_clk_stb <= o_clk_stb;
+                o_clk                      <= o_clk;
+                o_clk_stb                  <= o_clk_stb;
             end
         endcase
     end
@@ -112,16 +108,16 @@ always @* begin
         default: statename = "XXXXX";
     endcase
 end
-    `endif
+`endif
 // verilator lint_on UNUSED
 
 // fizzim code generation ends
 
 /*
-***************************************************************************
-* user code
-***************************************************************************
-*/
+ ***************************************************************************
+ * user code
+ ***************************************************************************
+ */
 
 `ifdef  FORMAL
 
@@ -137,10 +133,11 @@ end
 reg [3:0] f_clk_cnt = 0;
 always @(posedge i_clk)
 begin
-    assume(i_ce && i_rstn);
+    `ASSUME(i_ce && i_rstn);
     if (counter == (HALF_CLOCK_STRECH-1)) f_clk_cnt <= f_clk_cnt +1;
     if (f_clk_cnt == 5)
-        cover((counter == (HALF_CLOCK_STRECH-1)) && o_clk); // simple alternative to testbench
+        // simple alternative to testbench
+        cover((counter == (HALF_CLOCK_STRECH-1)) && o_clk);
 end
 
 //________________________________________________________
@@ -214,7 +211,7 @@ generate
     if (FORMAL_TEST == 3'b000)
     begin
         always @(*)
-            assume(i_ce);
+            `ASSUME(i_ce);
     end
 
     else if (FORMAL_TEST == 3'b001)
