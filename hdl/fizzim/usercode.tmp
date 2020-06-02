@@ -14,88 +14,88 @@ reg [3:0] f_clk_cnt = 0;
 always @(posedge i_clk)
 begin
     assume(i_ce && i_rstn);
-    if (counter == (HALF_CLOCK_STRECH-1)) f_clk_cnt < = f_clk_cnt +1;
+    if (counter == (HALF_CLOCK_STRECH-1)) f_clk_cnt <= f_clk_cnt +1;
     if (f_clk_cnt == 5)
         cover((counter == (HALF_CLOCK_STRECH-1)) && o_clk); // simple alternative to testbench
-        end
-    
-    //________________________________________________________
-    // assumptions about inputs
-    
-    reg f_past_valid;
-    initial f_past_valid = 1'b0;
-    always @(posedge i_clk) f_past_valid <= 1'b1;
-    
-    always @(posedge i_clk)
-        if (f_past_valid)
-        begin
-        end
-    
-    //________________________________________________________
-    // asserting reset condition/state
-    
-    always @(posedge i_clk)
-        if ((!f_past_valid)||($past(!i_rstn)))
-        begin
-            assert(o_clk == 0);
-            assert(counter == 0);
-            assert(state == RESET);
-        end
-    
-    //________________________________________________________
-    // assertions about outputs
-    
-    always @(posedge i_clk)
+end
+
+//________________________________________________________
+// assumptions about inputs
+
+reg f_past_valid;
+initial f_past_valid = 1'b0;
+always @(posedge i_clk) f_past_valid <= 1'b1;
+
+always @(posedge i_clk)
+    if (f_past_valid)
     begin
-        
-        //________________________________________________________
-        // irrespective of STATE
-        
-        // always in a known state
-        assert(state<3);
-        
-        // o_clk doesn't changes if i_ce == 0 (except when we reset)
-        if (f_past_valid && $past(!i_ce) && $past(i_rstn)) assert($stable(o_clk));
-        
-        // counter doesn't changes if i_ce == 0 (except when we reset)
-        if (f_past_valid && $past(!i_ce) && $past(i_rstn)) assert($stable(counter));
-        
-        //________________________________________________________
-        // STATE wise
-        
-        case(state)
-            RESET   : begin
-                assert(counter == 0 && o_clk == 0); // asserting reset values
-            end
-            IDLE    : begin
-                assert($stable(o_clk) && $stable(counter)); // no changes
-            end
-            START   : begin
-                assert(!($stable(counter))); // counter always changes
-                if (counter == 0) assert(!($stable(o_clk))); // o_clk changes when counter = 0
-                else assert(($stable(o_clk))); // otherwise o_clk is stable
-            end
-            default : assert(0); // you are not supposed to come here!
-        endcase
-        
     end
-    
+
+//________________________________________________________
+// asserting reset condition/state
+
+always @(posedge i_clk)
+    if ((!f_past_valid)||($past(!i_rstn)))
+    begin
+        assert(o_clk == 0);
+        assert(counter == 0);
+        assert(state == RESET);
+    end
+
+//________________________________________________________
+// assertions about outputs
+
+always @(posedge i_clk)
+begin
+
     //________________________________________________________
-    // selecting from a set of tests
-    
-    localparam [2:0]	FORMAL_TEST = 3'b001;
-    
-    generate
-    
+    // irrespective of STATE
+
+    // always in a known state
+    assert(state<3);
+
+    // o_clk doesn't changes if i_ce == 0 (except when we reset)
+    if (f_past_valid && $past(!i_ce) && $past(i_rstn)) assert($stable(o_clk));
+
+    // counter doesn't changes if i_ce == 0 (except when we reset)
+    if (f_past_valid && $past(!i_ce) && $past(i_rstn)) assert($stable(counter));
+
+    //________________________________________________________
+    // STATE wise
+
+    case(state)
+        RESET   : begin
+            assert(counter == 0 && o_clk == 0); // asserting reset values
+        end
+        IDLE    : begin
+            assert($stable(o_clk) && $stable(counter)); // no changes
+        end
+        START   : begin
+            assert(!($stable(counter))); // counter always changes
+            if (counter == 0) assert(!($stable(o_clk))); // o_clk changes when counter = 0
+            else assert(($stable(o_clk))); // otherwise o_clk is stable
+        end
+        default : assert(0); // you are not supposed to come here!
+    endcase
+
+end
+
+//________________________________________________________
+// selecting from a set of tests
+
+localparam [2:0]	FORMAL_TEST = 3'b001;
+
+generate
+
     if (FORMAL_TEST == 3'b000)
     begin
         always @(*)
             assume(i_ce);
     end
-    
+
     else if (FORMAL_TEST == 3'b001)
     begin
-end
+    end
 
 endgenerate
 

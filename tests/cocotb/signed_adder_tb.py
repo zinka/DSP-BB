@@ -22,7 +22,10 @@ from cocotb.result import TestFailure
 from cocotb.scoreboard import Scoreboard
 from cocotb.triggers import RisingEdge, Timer, ReadWrite, ReadOnly
 
-from model.dsp_modules import model
+# from model.dsp_modules import model
+
+def model(a, b):
+    return a + b
 
 def bin2sign(bin_value):
     """
@@ -35,7 +38,7 @@ def bin2sign(bin_value):
     return vec.signed_integer
 
 
-@cocotb.test(timeout_time=50, timeout_unit='ns', skip=True)
+@cocotb.test(timeout_time=50, timeout_unit='ns', skip=False)
 def basic_simulation(dut):
     """
     A simple functional test to provide a Wavedrom file
@@ -76,7 +79,7 @@ def basic_simulation(dut):
         # waves.write('wavedrom.json', header={'tick': 0}, config={'hscale': 3})
 
 
-@cocotb.test(timeout_time=2000, timeout_unit='ns', skip=False)
+@cocotb.test(timeout_time=200, timeout_unit='ns', skip=False)
 def basic_test(dut):
     """
     Randmized test for o_sum = i_a + i_b (signed addition/subtraction)
@@ -89,7 +92,7 @@ def basic_test(dut):
     yield clkedge  # synchronize ourselves with the clock
 
     # start the simulation
-    for _ in range(100):
+    for _ in range(10):
 
         # randomize the input data
         A = random.randint(-10, 15)

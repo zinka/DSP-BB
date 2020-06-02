@@ -8,7 +8,7 @@
 		"terminal.integrated.fontSize": 10,
 		"systemverilog.compileOnSave": true,
 		"systemverilog.launchConfiguration": "verilator  --lint-only  --Wall",
-		"python.pythonPath": "/usr/bin/python2",
+		"python.pythonPath": "/usr/bin/python",
 		"platformio-ide.disablePIOHomeStartup": true,
 		"platformio-ide.disableToolbar": true
 	}
