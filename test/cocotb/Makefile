@@ -12,7 +12,7 @@ MODULE   := test_adder # testbench name
 MODULE   := int_clk_div_tb # testbench name
 MODULE   := signed_adder_tb # testbench name
 
-VERILATOR_TRACE := 1
+VERILATOR_TRACE := 0
 SIM := verilator
 
 include $(shell cocotb-config --makefiles)/Makefile.inc

@@ -40,6 +40,7 @@
 *.pyc
 qproj/
 *.orig
+*.bin
 tests/formal/int_clk_div/
 tests/cocotb/results.xml
 tests/cocotb/sim_build/
@@ -50,3 +51,7 @@ hdl/out.svg
 hdl/output.json
 tests/cocotb/doc/_build
 tests/formal/signed_adder
+test/cocotb/doc/_build/
+test/cocotb/sim_build/
+test/formal/int_clk_div/
+test/formal/signed_adder/

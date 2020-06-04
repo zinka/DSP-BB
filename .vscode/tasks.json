@@ -42,10 +42,10 @@
         {
             "label": "cocotb",
             "type": "shell",
-            "command": "make",
+            "command": "source /home/zinka/python-virtual-environments/cocotb_env/bin/activate && make",
             "args": [],
             "options": {
-                "cwd": "${workspaceRoot}/tests/cocotb"
+                "cwd": "${workspaceRoot}/test/cocotb"
             },
             "presentation": {
                 "clear": false,
@@ -67,7 +67,7 @@
             "command": "make clean",
             "args": [],
             "options": {
-                "cwd": "${workspaceRoot}/tests/cocotb"
+                "cwd": "${workspaceRoot}/test/cocotb"
             },
             "presentation": {
                 "clear": true,

@@ -5,10 +5,12 @@
 # SPDX-License-Identifier: GPL-3.0
 #
 # GNU Radio Python Flow Graph
-# Title: Top Block
+# Title: Top Block Adder
 # GNU Radio version: 3.8.1.0
 
 from distutils.version import StrictVersion
+
+import numpy
 
 if __name__ == '__main__':
     import ctypes
@@ -30,16 +32,15 @@ from PyQt5 import Qt
 from argparse import ArgumentParser
 from gnuradio.eng_arg import eng_float, intx
 from gnuradio import eng_notation
-import doubler
 
 from gnuradio import qtgui
 
-class top_block(gr.top_block, Qt.QWidget):
+class top_block_adder(gr.top_block, Qt.QWidget):
 
     def __init__(self):
-        gr.top_block.__init__(self, "Top Block")
+        gr.top_block.__init__(self, "Top Block Adder")
         Qt.QWidget.__init__(self)
-        self.setWindowTitle("Top Block")
+        self.setWindowTitle("Top Block Adder")
         qtgui.util.check_set_qss()
         try:
             self.setWindowIcon(Qt.QIcon.fromTheme('gnuradio-grc'))
@@ -57,7 +58,7 @@ class top_block(gr.top_block, Qt.QWidget):
         self.top_grid_layout = Qt.QGridLayout()
         self.top_layout.addLayout(self.top_grid_layout)
 
-        self.settings = Qt.QSettings("GNU Radio", "top_block")
+        self.settings = Qt.QSettings("GNU Radio", "top_block_adder")
 
         try:
             if StrictVersion(Qt.qVersion()) < StrictVersion("5.0.0"):
@@ -75,25 +76,30 @@ class top_block(gr.top_block, Qt.QWidget):
         ##################################################
         # Blocks
         ##################################################
-        self.file_source_0 = blocks.file_source(gr.sizeof_float*1, '/home/zinka/Desktop/Github_Clones/DSP-BB/tmp.bin', False, 0, 0)
+        self.file_source_0_0 = blocks.file_source(gr.sizeof_float*1, '/home/zinka/Desktop/Github_Clones/DSP-BB/b.bin', False, 0, 0)
+        self.file_source_0_0.set_begin_tag(pmt.PMT_NIL)
+        self.file_source_0 = blocks.file_source(gr.sizeof_float*1, '/home/zinka/Desktop/Github_Clones/DSP-BB/a.bin', False, 0, 0)
         self.file_source_0.set_begin_tag(pmt.PMT_NIL)
-        self.doubler = doubler.blk(example_param=2)
+        self.blocks_throttle_0_0 = blocks.throttle(gr.sizeof_float*1, samp_rate,True)
         self.blocks_throttle_0 = blocks.throttle(gr.sizeof_float*1, samp_rate,True)
-        self.blocks_file_sink_0 = blocks.file_sink(gr.sizeof_float*1, '/home/zinka/Desktop/Github_Clones/DSP-BB/tmp.bin', False)
-        self.blocks_file_sink_0.set_unbuffered(False)
+        self.blocks_file_sink_0 = blocks.file_sink(gr.sizeof_float*1, '/home/zinka/Desktop/Github_Clones/DSP-BB/sum.bin', False)
+        self.blocks_file_sink_0.set_unbuffered(True)
+        self.blocks_add_xx_0 = blocks.add_vff(1)
 
 
 
         ##################################################
         # Connections
         ##################################################
-        self.connect((self.blocks_throttle_0, 0), (self.doubler, 0))
-        self.connect((self.doubler, 0), (self.blocks_file_sink_0, 0))
+        self.connect((self.blocks_add_xx_0, 0), (self.blocks_file_sink_0, 0))
+        self.connect((self.blocks_throttle_0, 0), (self.blocks_add_xx_0, 0))
+        self.connect((self.blocks_throttle_0_0, 0), (self.blocks_add_xx_0, 1))
         self.connect((self.file_source_0, 0), (self.blocks_throttle_0, 0))
+        self.connect((self.file_source_0_0, 0), (self.blocks_throttle_0_0, 0))
 
 
     def closeEvent(self, event):
-        self.settings = Qt.QSettings("GNU Radio", "top_block")
+        self.settings = Qt.QSettings("GNU Radio", "top_block_adder")
         self.settings.setValue("geometry", self.saveGeometry())
         event.accept()
 
@@ -103,12 +109,13 @@ class top_block(gr.top_block, Qt.QWidget):
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
         self.blocks_throttle_0.set_sample_rate(self.samp_rate)
+        self.blocks_throttle_0_0.set_sample_rate(self.samp_rate)
 
 
 
 
 
-def main(top_block_cls=top_block, options=None):
+def main(top_block_cls=top_block_adder, options=None):
 
     if StrictVersion("4.5.0") <= StrictVersion(Qt.qVersion()) < StrictVersion("5.0.0"):
         style = gr.prefs().get_string('qtgui', 'style', 'raster')

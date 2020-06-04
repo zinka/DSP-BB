@@ -1,5 +1,5 @@
 {
     "python.formatting.provider": "yapf",
     "restructuredtext.confPath": "${workspaceFolder}/tests/cocotb/doc",
-    "python.pythonPath": "/usr/bin/python3"
+    "python.pythonPath": "/home/zinka/python-virtual-environments/cocotb_env/bin/python"
 }
