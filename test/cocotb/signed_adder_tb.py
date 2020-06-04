@@ -181,21 +181,25 @@ def gr_test(dut):
 
         a_lst.append(i_A)
         b_lst.append(i_B)
-        sum_lst.append(o_SUM)         
+        sum_lst.append(o_SUM)
+    
+    # pass the data to Gnu Radio and get the return data
+    np.array(a_lst, dtype=np.float32).tofile("a.bin")
+    np.array(b_lst, dtype=np.float32).tofile("b.bin")
+    main()
+    sum_lst_gr = np.fromfile("sum.bin", dtype=np.float32)
 
-        # # compare with the reference model
-        # if (o_SUM != adder_model(A, B)):
-        #     raise TestFailure("Randomised test failed with: %s + %s = %s" %
-        #                       (i_A, i_B, o_SUM))
-        # else:
-        #     dut._log.info("Randomised test passed with: %s + %s = %s" %
-        #                   (i_A, i_B, o_SUM))
+    # compare the returned data with verilator output
+    if np.array_equal(sum_lst_gr, np.array(sum_lst)):
+        dut._log.info("gr_test passed")
+    else:
+        raise TestFailure("gr_test failed")
 
-    # numpy.array(a_lst).tofile("a.bin")
-    # numpy.array(b_lst).tofile("b.bin")
-    # # main()
-    # print(numpy.fromfile("sum.bin", dtype=numpy.float32))
-  
+    # # print for convinience
+    # print(np.fromfile("a.bin", dtype=np.float32))
+    # print(np.fromfile("b.bin", dtype=np.float32))
+    # print(np.fromfile("sum.bin", dtype=np.float32))    
+
 
 if __name__ == "__main__":
 
@@ -205,10 +209,10 @@ if __name__ == "__main__":
     # b = np.array([5,6,7,8], dtype=np.float32)
     # b.tofile("b.bin")
 
-    # from test.cocotb.model.top_block import main
-    # main()
+    # # from test.cocotb.model.top_block import main
+    main()
 
-    # read from binary file
-    print(np.fromfile("a.bin", dtype=np.float32))
-    print(np.fromfile("b.bin", dtype=np.float32))
-    print(np.fromfile("sum.bin", dtype=np.float32))
+    # # read from binary file
+    # print(np.fromfile("a.bin", dtype=np.float32))
+    # print(np.fromfile("b.bin", dtype=np.float32))
+    # print(np.fromfile("sum.bin", dtype=np.float32))

@@ -10,8 +10,6 @@
 
 from distutils.version import StrictVersion
 
-import numpy
-
 if __name__ == '__main__':
     import ctypes
     import sys
@@ -76,13 +74,13 @@ class top_block_adder(gr.top_block, Qt.QWidget):
         ##################################################
         # Blocks
         ##################################################
-        self.file_source_0_0 = blocks.file_source(gr.sizeof_float*1, '/home/zinka/Desktop/Github_Clones/DSP-BB/b.bin', False, 0, 0)
+        self.file_source_0_0 = blocks.file_source(gr.sizeof_float*1, '/home/zinka/Desktop/Github_Clones/DSP-BB/test/cocotb/b.bin', False, 0, 0)
         self.file_source_0_0.set_begin_tag(pmt.PMT_NIL)
-        self.file_source_0 = blocks.file_source(gr.sizeof_float*1, '/home/zinka/Desktop/Github_Clones/DSP-BB/a.bin', False, 0, 0)
+        self.file_source_0 = blocks.file_source(gr.sizeof_float*1, '/home/zinka/Desktop/Github_Clones/DSP-BB/test/cocotb/a.bin', False, 0, 0)
         self.file_source_0.set_begin_tag(pmt.PMT_NIL)
         self.blocks_throttle_0_0 = blocks.throttle(gr.sizeof_float*1, samp_rate,True)
         self.blocks_throttle_0 = blocks.throttle(gr.sizeof_float*1, samp_rate,True)
-        self.blocks_file_sink_0 = blocks.file_sink(gr.sizeof_float*1, '/home/zinka/Desktop/Github_Clones/DSP-BB/sum.bin', False)
+        self.blocks_file_sink_0 = blocks.file_sink(gr.sizeof_float*1, '/home/zinka/Desktop/Github_Clones/DSP-BB/test/cocotb/sum.bin', False)
         self.blocks_file_sink_0.set_unbuffered(True)
         self.blocks_add_xx_0 = blocks.add_vff(1)
 
