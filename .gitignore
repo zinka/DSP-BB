@@ -55,3 +55,4 @@ test/cocotb/doc/_build/
 test/cocotb/sim_build/
 test/formal/int_clk_div/
 test/formal/signed_adder/
+test/__pycache__/

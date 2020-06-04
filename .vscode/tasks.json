@@ -64,7 +64,7 @@
         {
             "label": "cocotb_clean",
             "type": "shell",
-            "command": "make clean",
+            "command": "source /home/zinka/python-virtual-environments/cocotb_env/bin/activate && make clean",
             "args": [],
             "options": {
                 "cwd": "${workspaceRoot}/test/cocotb"
@@ -74,6 +74,10 @@
                 "showReuseMessage": false,
                 "focus": true,
             },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         },
         {
             "label": "fizzim",
