@@ -1,6 +1,6 @@
 # Author: Srinivasa Rao Zinka (srinivas . zinka [at] gmail . com)
-# Copyright (c) 2016 Srinivasa Rao Zinka
-# License: New BSD License.
+# Copyright (c) 2020 Srinivasa Rao Zinka
+# License: MIT License
 """
 Module for testing signed_adder.v
 
@@ -210,9 +210,9 @@ if __name__ == "__main__":
     # b.tofile("b.bin")
 
     # # from test.cocotb.model.top_block import main
-    main()
+    # main()
 
     # # read from binary file
-    # print(np.fromfile("a.bin", dtype=np.float32))
-    # print(np.fromfile("b.bin", dtype=np.float32))
-    # print(np.fromfile("sum.bin", dtype=np.float32))
+    print(np.fromfile("a.bin", dtype=np.float32))
+    print(np.fromfile("b.bin", dtype=np.float32))
+    print(np.fromfile("sum.bin", dtype=np.float32))

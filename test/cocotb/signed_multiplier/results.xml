@@ -1,0 +1,6 @@
+<testsuites name="results">
+  <testsuite name="all" package="all" tests="0">
+    <property name="random_seed" value="1591607508" />
+    <testcase classname="signed_multiply_tb" name="multiply_gr_test" ratio_time="79.00671804275925" sim_time_ns="102.0" time="1.291029453277588" />
+  </testsuite>
+</testsuites>

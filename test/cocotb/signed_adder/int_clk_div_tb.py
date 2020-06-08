@@ -1,6 +1,6 @@
 # Author: Srinivasa Rao Zinka (srinivas . zinka [at] gmail . com)
-# Copyright (c) 2016 Srinivasa Rao Zinka
-# License: New BSD License.
+# Copyright (c) 2020 Srinivasa Rao Zinka
+# License: MIT License
 """
 Module for testing int_clk_div.v
 

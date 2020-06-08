@@ -20,10 +20,11 @@
             "command": "sby",
             "args": [
                 "-f",
-                "${fileBasenameNoExtension}.sby"
+                "${fileBasenameNoExtension}.sby",
+                "${input:param1}"
             ],
             "options": {
-                "cwd": "${workspaceRoot}/tests/formal"
+                "cwd": "${workspaceRoot}/test/formal"
             },
             "presentation": {
                 "clear": false,
@@ -40,12 +41,30 @@
             }
         },
         {
+            "label": "symb_clean",
+            "type": "shell",
+            "command": "rm -R -- */",
+            "args": [],
+            "options": {
+                "cwd": "${workspaceRoot}/test/formal"
+            },
+            "presentation": {
+                "clear": true,
+                "showReuseMessage": false,
+                "focus": true,
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },        
+        {
             "label": "cocotb",
             "type": "shell",
             "command": "source /home/zinka/python-virtual-environments/cocotb_env/bin/activate && make",
             "args": [],
             "options": {
-                "cwd": "${workspaceRoot}/test/cocotb"
+                "cwd": "${workspaceRoot}/${relativeFileDirname}"
             },
             "presentation": {
                 "clear": false,
@@ -67,7 +86,7 @@
             "command": "source /home/zinka/python-virtual-environments/cocotb_env/bin/activate && make clean",
             "args": [],
             "options": {
-                "cwd": "${workspaceRoot}/test/cocotb"
+                "cwd": "${workspaceRoot}/${relativeFileDirname}"
             },
             "presentation": {
                 "clear": true,
@@ -170,5 +189,14 @@
                 "clear": true
             }
         },
-    ]
+    ],
+
+    "inputs": [
+        {
+            "id": "param1",
+            "description": "Param1:",
+            "default": "",
+            "type": "promptString"
+        },
+    ]    
 }

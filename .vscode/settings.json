@@ -1,5 +1,6 @@
 {
     "python.formatting.provider": "yapf",
     "restructuredtext.confPath": "${workspaceFolder}/tests/cocotb/doc",
-    "python.pythonPath": "/home/zinka/python-virtual-environments/cocotb_env/bin/python"
+    "python.pythonPath": "/home/zinka/python-virtual-environments/cocotb_env/bin/python",
+    "coddx.taskBoard.fileList": "TODO.md, TODO-Personal.md",
 }

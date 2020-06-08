@@ -11,6 +11,8 @@
 		"python.pythonPath": "/home/zinka/python-virtual-environments/cocotb_env/bin/python",
 		"platformio-ide.disablePIOHomeStartup": true,
 		"platformio-ide.disableToolbar": true,
-		"clock.dateFormat": "ddd mmm dd hh:MM TT"
+		"clock.dateFormat": "ddd mmm dd hh:MM TT",
+		"hediet.vscode-drawio.theme": "Kennedy",
+		"hediet.vscode-drawio.offline": false
 	}
 }

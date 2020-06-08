@@ -4,13 +4,12 @@
 * @project : DSP Building Blocks
 * @brief   : A simple adder for signed integers
 * @creator : S. R. Zinka (srinivas . zinka [at] gmail . com)
-* @notes   : just ensure -2^(AWIDTH-1) <= i_a <= 2^(AWIDTH-1) -1, etc. 
+* @notes   : just ensure 
+             -2^(AWIDTH-1) <= i_a <= 2^(AWIDTH-1) -1, and
+             -2^(BWIDTH-1) <= i_b <= 2^(BWIDTH-1) -1.
              Bit growth is taken care.
 ******************************************************************************
-* This program is hereby granted to the public domain.
-* This program is distributed in the hope that it will be useful, but WITHOUT
-* ANY WARRANTY; without even the implied warranty of MERCHANTIBILITY or
-* FITNESS FOR A PARTICULAR PURPOSE.
+* This code is licensed under the MIT License.
 ******************************************************************************
 */
 
@@ -25,7 +24,7 @@ module signed_adder #(
            input  wire  i_clk,
            input  wire  signed  [AWIDTH-1:0] i_a,
            input  wire  signed  [BWIDTH-1:0] i_b,
-           output reg   [OUTWID-1:0]   o_sum
+           output reg   signed  [OUTWID-1:0] o_sum
        );
 
 /*
@@ -57,18 +56,29 @@ end
 /*
 ***************************************************************************
 * formal verification code 
-* (only formal verification here other tests in COCOTB module)
+* (only formal verification here ... other tests in COCOTB module)
 ***************************************************************************
 */
 
 `ifdef  FORMAL
 
+reg f_past_valid;
+reg f_sum_valid;
+initial f_past_valid = 1'b0;
+initial f_sum_valid = 1'b0;
+always @(posedge i_clk)
+begin
+    f_past_valid <= 1'b1;
+    if(f_past_valid == 1'b1) f_sum_valid <= 1'b1;
+end
+
 // selecting from a set of tests
-localparam [2:0]	FORMAL_TEST = 3'b001;
+localparam [2:0] FORMAL_TEST = 3'b001;
 
 generate
 
-    if (FORMAL_TEST == 3'b000) // simple alternative to testbench
+    // simple alternative to testbench
+    if (FORMAL_TEST == 3'b000)
     begin
         always @(posedge i_clk)
         begin
@@ -77,30 +87,41 @@ generate
         end
     end
 
-    else if (FORMAL_TEST == 3'b001) // asserting "if a<0 && b>0, sum<b"
+    // asserting "if a<0 && b>=0, sum<b"
+    else if (FORMAL_TEST == 3'b001)
     begin
+        reg signed [AWIDTH-1:0] f_difference = 0; // sum-b, i.e., a, should be negative
         always @(posedge i_clk)
         begin
-            assume((i_a[AWIDTH-1]==1) && (i_b[BWIDTH-1]==0));
-            // TODO
+            assume((i_a[AWIDTH-1]==1)&&(i_b[BWIDTH-1]==0)); // a<0 and b>=0
+            f_difference <= o_sum-$past(i_b);
+            if(f_sum_valid) assert(f_difference[AWIDTH-1]==1'b1); // assert only after a valid sum is available
         end
     end
 
-    else if (FORMAL_TEST == 3'b002) // asserting "if a>0 && b>0, sum>a && sum>b"
+    // asserting "if a>=0 && b>=0, sum>=a && sum>=b"
+    else if (FORMAL_TEST == 3'b010)
     begin
         always @(posedge i_clk)
         begin
             assume((i_a[AWIDTH-1]==0) && (i_b[BWIDTH-1]==0));
-            // TODO
+            if(f_sum_valid) assert(o_sum >= $past(i_a)); // assert only after a valid sum is available
+            if(f_sum_valid) assert(o_sum >= $past(i_b)); // assert only after a valid sum is available
         end
     end
 
-    else if (FORMAL_TEST == 3'b003) // asserting "if a<0 && b<0, sum<a && sum<b"
+    // asserting "if a<0 && b<0, sum<a && sum<b"
+    else if (FORMAL_TEST == 3'b011)
     begin
+        reg signed [AWIDTH-1:0] f_difference_sb = 0; // sum-b, i.e., a, should be negative
+        reg signed [BWIDTH-1:0] f_difference_sa = 0; // sum-a, i.e., b, should be negative
         always @(posedge i_clk)
         begin
             assume((i_a[AWIDTH-1]==1) && (i_b[BWIDTH-1]==1));
-            // TODO
+            f_difference_sb <= o_sum-$past(i_b);
+            if(f_sum_valid) assert(f_difference_sb[AWIDTH-1]==1'b1); // assert only after a valid sum is available
+            f_difference_sa <= o_sum-$past(i_a);
+            if(f_sum_valid) assert(f_difference_sa[BWIDTH-1]==1'b1); // assert only after a valid sum is available
         end
     end
 

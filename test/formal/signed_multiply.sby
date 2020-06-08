@@ -21,8 +21,8 @@ prf: depth 4
 smtbmc
 
 [script]
-read -formal signed_adder.v
-prep -top signed_adder
+read -formal signed_multiply.v
+prep -top signed_multiply
 
 [files]
-../../hdl/primitives/signed_adder.v
+../../hdl/primitives/signed_multiply.v

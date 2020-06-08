@@ -6,10 +6,7 @@
 * @creator : S. R. Zinka (srinivas . zinka [at] gmail . com)
 * @notes   : zjs
 ******************************************************************************
-* This program is hereby granted to the public domain.
-* This program is distributed in the hope that it will be useful, but WITHOUT
-* ANY WARRANTY; without even the implied warranty of MERCHANTIBILITY or
-* FITNESS FOR A PARTICULAR PURPOSE.
+* This code is licensed under the MIT License.
 ******************************************************************************
 */
 

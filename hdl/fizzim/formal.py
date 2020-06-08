@@ -1,3 +1,10 @@
+# Author: Srinivasa Rao Zinka (srinivas . zinka [at] gmail . com)
+# Copyright (c) 2020 Srinivasa Rao Zinka
+# License: MIT License
+"""
+Module for incremental code generation using fizzim
+"""
+
 import os
 import re
 import sys

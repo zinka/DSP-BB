@@ -69,7 +69,7 @@ blocks:
     alias: ''
     append: 'False'
     comment: ''
-    file: /home/zinka/Desktop/Github_Clones/DSP-BB/test/cocotb/sum.bin
+    file: sum.bin
     type: float
     unbuffered: 'True'
     vlen: '1'
@@ -125,7 +125,7 @@ blocks:
     alias: ''
     begin_tag: pmt.PMT_NIL
     comment: ''
-    file: /home/zinka/Desktop/Github_Clones/DSP-BB/test/cocotb/a.bin
+    file: a.bin
     length: '0'
     maxoutbuf: '0'
     minoutbuf: '0'
@@ -147,7 +147,7 @@ blocks:
     alias: ''
     begin_tag: pmt.PMT_NIL
     comment: ''
-    file: /home/zinka/Desktop/Github_Clones/DSP-BB/test/cocotb/b.bin
+    file: b.bin
     length: '0'
     maxoutbuf: '0'
     minoutbuf: '0'
@@ -160,6 +160,24 @@ blocks:
     bus_source: false
     bus_structure: null
     coordinate: [176, 324.0]
+    rotation: 0
+    state: true
+- name: relative_path
+  id: epy_module
+  parameters:
+    alias: ''
+    comment: ''
+    source_code: 'import os
+
+
+      script_path = os.path.dirname(os.path.realpath(__file__))
+
+      os.chdir(script_path)'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [968, 448.0]
     rotation: 0
     state: true
 

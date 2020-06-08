@@ -7,10 +7,7 @@
 * @notes   : just ensure 0 <= i_a <= 2^AWIDTH -1, etc. 
              Bit growth is taken care.
 ******************************************************************************
-* This program is hereby granted to the public domain.
-* This program is distributed in the hope that it will be useful, but WITHOUT
-* ANY WARRANTY; without even the implied warranty of MERCHANTIBILITY or
-* FITNESS FOR A PARTICULAR PURPOSE.
+* This code is licensed under the MIT License.
 ******************************************************************************
 */
 

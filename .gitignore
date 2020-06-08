@@ -57,3 +57,9 @@ test/formal/int_clk_div/
 test/formal/signed_adder/
 test/__pycache__/
 test/cocotb/build/
+test/cocotb/signed_adder/build
+test/cocotb/signed_adder/sim_build
+test/formal/unsigned_adder_bmc/
+test/formal/unsigned_adder_cvr/
+test/formal/unsigned_adder_prf/
+TODO copy.md

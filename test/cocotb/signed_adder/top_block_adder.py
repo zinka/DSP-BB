@@ -30,6 +30,7 @@ from PyQt5 import Qt
 from argparse import ArgumentParser
 from gnuradio.eng_arg import eng_float, intx
 from gnuradio import eng_notation
+import relative_path  # embedded python module
 
 from gnuradio import qtgui
 
@@ -74,13 +75,13 @@ class top_block_adder(gr.top_block, Qt.QWidget):
         ##################################################
         # Blocks
         ##################################################
-        self.file_source_0_0 = blocks.file_source(gr.sizeof_float*1, '/home/zinka/Desktop/Github_Clones/DSP-BB/test/cocotb/b.bin', False, 0, 0)
+        self.file_source_0_0 = blocks.file_source(gr.sizeof_float*1, 'b.bin', False, 0, 0)
         self.file_source_0_0.set_begin_tag(pmt.PMT_NIL)
-        self.file_source_0 = blocks.file_source(gr.sizeof_float*1, '/home/zinka/Desktop/Github_Clones/DSP-BB/test/cocotb/a.bin', False, 0, 0)
+        self.file_source_0 = blocks.file_source(gr.sizeof_float*1, 'a.bin', False, 0, 0)
         self.file_source_0.set_begin_tag(pmt.PMT_NIL)
         self.blocks_throttle_0_0 = blocks.throttle(gr.sizeof_float*1, samp_rate,True)
         self.blocks_throttle_0 = blocks.throttle(gr.sizeof_float*1, samp_rate,True)
-        self.blocks_file_sink_0 = blocks.file_sink(gr.sizeof_float*1, '/home/zinka/Desktop/Github_Clones/DSP-BB/test/cocotb/sum.bin', False)
+        self.blocks_file_sink_0 = blocks.file_sink(gr.sizeof_float*1, 'sum.bin', False)
         self.blocks_file_sink_0.set_unbuffered(True)
         self.blocks_add_xx_0 = blocks.add_vff(1)
 
