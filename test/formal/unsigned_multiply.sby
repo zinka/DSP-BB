@@ -1,0 +1,28 @@
+[tasks]
+cvr
+bmc
+prf
+
+[options]
+cvr: mode cover
+cvr: depth 20
+#cvr : chparam  -set CLOCKS_PER_BAUD 8 rxuart # change parameter CLOCKS_PER_BAUD of rxuart to 8 for cvr task
+
+bmc: mode bmc
+bmc: depth 20
+
+prf: mode prove
+prf: depth 4
+
+#append 10
+#multiclock off
+
+[engines]
+smtbmc
+
+[script]
+read -formal unsigned_multiply.v
+prep -top unsigned_multiply
+
+[files]
+../../hdl/primitives/unsigned_multiply.v

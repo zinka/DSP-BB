@@ -63,3 +63,12 @@ test/formal/unsigned_adder_bmc/
 test/formal/unsigned_adder_cvr/
 test/formal/unsigned_adder_prf/
 TODO copy.md
+test/cocotb/unsigned_adder/build
+
+test/cocotb/unsigned_adder/sim_build
+test/cocotb/unsigned_multiply/build
+
+test/cocotb/unsigned_multiply/sim_build
+test/formal/unsigned_multiply_bmc
+test/formal/unsigned_multiply_cvr
+test/formal/unsigned_multiply_prf
