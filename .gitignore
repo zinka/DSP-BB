@@ -41,6 +41,7 @@
 qproj/
 *.orig
 *.bin
+*.vvp
 tests/formal/int_clk_div/
 tests/cocotb/results.xml
 tests/cocotb/sim_build/
@@ -72,3 +73,6 @@ test/cocotb/unsigned_multiply/sim_build
 test/formal/unsigned_multiply_bmc
 test/formal/unsigned_multiply_cvr
 test/formal/unsigned_multiply_prf
+
+test/cocotb/signed_multiply/build
+test/cocotb/signed_multiply/sim_build

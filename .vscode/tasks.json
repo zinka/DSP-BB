@@ -14,6 +14,32 @@
                 "showReuseMessage": false,
             },
         },
+
+        {
+            "label": "iverilog",
+            "type": "shell",
+            "command": "iverilog -g2012 -o output.vvp ${fileBasenameNoExtension}.v -I ${workspaceRoot}/hdl/ && vvp output.vvp",
+            "args": [
+            ],
+            "options": {
+                "cwd": "${workspaceRoot}/${relativeFileDirname}"
+            },
+            "presentation": {
+                "clear": false,
+                "showReuseMessage": false,
+                "focus": true,
+            },
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "clear output"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+
+
         {
             "label": "symb",
             "type": "shell",

@@ -98,10 +98,10 @@ def multiply_gr_test(dut):
     else:
         raise TestFailure("gr_test failed")
 
-    # # print for convinience
-    # print(np.fromfile("data_a.bin", dtype=np.float32))
-    # print(np.fromfile("data_b.bin", dtype=np.float32))
-    # print(np.fromfile("data_prod.bin", dtype=np.float32))    
+    # print for convinience
+    print(np.fromfile("data_a.bin", dtype=np.float32))
+    print(np.fromfile("data_b.bin", dtype=np.float32))
+    print(np.fromfile("data_prod.bin", dtype=np.float32))    
 
 
 if __name__ == "__main__":

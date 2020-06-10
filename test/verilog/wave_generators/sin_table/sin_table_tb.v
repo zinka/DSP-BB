@@ -1,15 +1,17 @@
 /*
 ******************************************************************************
-* @file    : signed_adder_tb.v
+* @file    : sin_table_tb.v
 * @project : DSP Building Blocks
-* @brief   : Verilog testbench for signed_adder.v
+* @brief   : Verilog testbench for sin_table_tb.v
 * @creator : S. R. Zinka (srinivas . zinka [at] gmail . com)
 ******************************************************************************
 * This code is licensed under the MIT License.
 ******************************************************************************
 */
 
-`timescale 1 ns/10 ps  // time-unit = 1 ns, precision = 10 ps
+`include "dsp/wave_generators/sin_table.v"
+`timescale 1ns/1ns
+`default_nettype none
 
 /*
 ***************************************************************************
@@ -17,7 +19,7 @@
 ***************************************************************************
 */
 
-module signed_adder_tb; 
+module sin_table_tb;
 
 localparam period = 10; // clock period
 
@@ -27,14 +29,13 @@ localparam period = 10; // clock period
 ***************************************************************************
 */
 
-initial 
+initial
 begin
-$dumpfile("dump.vcd");
-// $dumpvars(0, value, clk, reset);
-$dumpvars;
-// $monitor("t =%d: o_cnt =%d\n", $time, o_cnt);
-$display("=============================================\n");
-#(20*period) $finish; // run for 20 clock cycles
+    $dumpfile("dump.vcd");
+    $dumpvars;
+    // $dumpvars(0, value, clk, reset);
+    $display("=============================================\n");
+    #(200000*period) $finish; // run for 20 clock cycles
 end
 
 /*
@@ -53,37 +54,41 @@ always #(period/2) i_clk = !i_clk;
 */
 
 // local parameters
-localparam AWIDTH = 4, BWIDTH = 3;
-localparam	OUTWID = (AWIDTH > BWIDTH) ? (AWIDTH + 1) : (BWIDTH+1);
+localparam PW = 17, OW = 13;
 
 // module inputs
-reg signed [AWIDTH-1:0] i_a = -8;
-reg signed [BWIDTH-1:0] i_b = -4;
+// reg i_clk;
+reg i_reset=0;
+reg i_ce = 1;
+reg i_aux = 1;
+reg [(PW-1):0] i_phase = 0;
 
 // module outputs
-wire signed [OUTWID-1:0] o_sum;
+wire signed o_aux;
+wire signed [(OW-1):0] o_val;
 
 // module instantiation
-signed_adder u_signed_adder (
-  .i_a (i_a),
-	.i_b (i_b),
-	.o_sum (o_sum)
-);
+sin_table u_sin_table (
+              .i_clk  (i_clk  ),
+              .i_reset(i_reset),
+              .i_ce   (i_ce   ),
+              .i_aux  (i_aux  ),
+              .i_phase(i_phase),
+              .o_val  (o_val  ),
+              .o_aux  (o_aux)
+          );
 
 /*
 ***************************************************************************
-* module stimuli (random)
+* module stimuli
 ***************************************************************************
 */
 
-integer seed = 10;
-
 initial
-repeat(40) @(posedge i_clk)
-begin 
-  i_a = $random % 20;
-  i_b = $random % 4; 
-end
+    repeat(1000000) @(negedge i_clk)
+    begin
+        i_phase = i_phase+1;
+    end    
 
 /*
 ***************************************************************************
@@ -91,6 +96,6 @@ end
 ***************************************************************************
 */
 
-initial $monitor("a:%0d, b:%0d, sum:%0d\n", i_a, i_b, o_sum);
-    
+initial $monitor("phase:%0h, o_val:%0h\n", i_phase, o_val);
+
 endmodule

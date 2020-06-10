@@ -1,6 +1,6 @@
 WPWD=$(shell pwd)
 
-VERILOG_SOURCES = $(WPWD)/../../../hdl/primitives/signed_adder.v
+VERILOG_SOURCES = $(wildcard $(WPWD)/../../../hdl/primitives/*.v)
 
 TOPLEVEL := signed_adder # hdl module name
 

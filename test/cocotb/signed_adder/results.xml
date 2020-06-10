@@ -1,8 +1,8 @@
 <testsuites name="results">
   <testsuite name="all" package="all" tests="0">
-    <property name="random_seed" value="1591610321" />
-    <testcase classname="signed_adder_tb" name="basic_simulation" ratio_time="5896.146198083067" sim_time_ns="22.0" time="0.003731250762939453" />
-    <testcase classname="signed_adder_tb" name="basic_test" ratio_time="11978.225508694986" sim_time_ns="112.0" time="0.009350299835205078" />
-    <testcase classname="signed_adder_tb" name="gr_test" ratio_time="62.21963610625133" sim_time_ns="112.0" time="1.800074815750122" />
+    <property name="random_seed" value="1591766273" />
+    <testcase classname="signed_adder_tb" name="basic_simulation" ratio_time="1072.6409753877233" sim_time_ns="20.002" time="0.018647432327270508" />
+    <testcase classname="signed_adder_tb" name="basic_test" ratio_time="1071.5605560257334" sim_time_ns="110.002" time="0.10265588760375977" />
+    <testcase classname="signed_adder_tb" name="gr_test" ratio_time="101.48421084296142" sim_time_ns="110.00200000000001" time="1.0839321613311768" />
   </testsuite>
 </testsuites>

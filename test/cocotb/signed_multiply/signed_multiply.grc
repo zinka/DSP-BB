@@ -41,7 +41,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [8, 108.0]
+    coordinate: [8, 124.0]
     rotation: 0
     state: enabled
 - name: blocks_file_sink_0
@@ -169,7 +169,6 @@ blocks:
     comment: ''
     source_code: 'import os
 
-
       script_path = os.path.dirname(os.path.realpath(__file__))
 
       os.chdir(script_path)'
@@ -177,7 +176,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [968, 448.0]
+    coordinate: [8, 196.0]
     rotation: 0
     state: true
 

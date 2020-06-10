@@ -1,4 +1,17 @@
+/*
+******************************************************************************
+* @file    : qmults.v
+* @project : DSP Building Blocks
+* @brief   : module to multiply two numbers given in fixed point format
+* @creator : S. R. Zinka (srinivas . zinka [at] gmail . com)
+* @notes   : what about overflow?
+******************************************************************************
+* This code is licensed under the MIT License.
+******************************************************************************
+*/
+
 `timescale 1ns / 1ps
+`default_nettype none
 
 module qmults#(
 	//Parameterized values
